@@ -9,5 +9,9 @@ int main(int ac, char **av) {
     f.setSignificand(0b1111);
     f.setExponent(0b1010);
 
-    std::cout << f;
+    f.setExponent(f.getExponent() + 1);
+    std::cout << f << std::endl;
+
+    auto f1 = MyFloat(f.getSignificand(), f.getExponent());
+    std::cout << f1 << std::endl;
 }

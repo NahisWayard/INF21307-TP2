@@ -19,9 +19,15 @@ public:
     void setExponent(uint16_t e);
     uint16_t getData() const;
 
-    friend std::ostream &operator <<(std::ostream &os, const MyFloat &aFloat);
+    friend bool operator ==(const MyFloat &lhs, const MyFloat &rhs);
+    friend bool operator !=(const MyFloat &lhs, const MyFloat &rhs);
 
-private:
+    friend MyFloat operator +(const MyFloat &lhs, const MyFloat &rhs);
+    friend MyFloat operator -(const MyFloat &lhs, const MyFloat &rhs);
+    friend MyFloat operator *(const MyFloat &lhs, const MyFloat &rhs);
+    friend MyFloat operator /(const MyFloat &lhs, const MyFloat &rhs);
+
+    friend std::ostream &operator <<(std::ostream &os, const MyFloat &aFloat);
 };
 
 #endif

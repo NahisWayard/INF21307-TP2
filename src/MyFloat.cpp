@@ -6,6 +6,10 @@ MyFloat::MyFloat(uint16_t data) :
         data(data) {
 }
 
+MyFloat::MyFloat(uint16_t significand, uint16_t exponent) : data(0) {
+    data = (((significand) << 4) & SIGNIFICAND_MASK) | (exponent & EXPONENT_MASK);
+}
+
 uint16_t MyFloat::getSignificand() const {
     return (data & SIGNIFICAND_MASK) >> 4;
 }
@@ -15,9 +19,10 @@ uint16_t MyFloat::getExponent() const {
 }
 
 std::ostream &operator <<(std::ostream &os, const MyFloat &aFloat) {
+    //TODO Display as floating point thing (ex: 13.234)
     os << "RAW: " << std::bitset<16>(aFloat.data) <<  std::endl <<
-        "Significand: " << std::hex << std::bitset<12>(aFloat.getSignificand()) << std::endl <<
-        "Exponent: " << std::hex << std::bitset<4>(aFloat.getExponent()) << std::endl;
+        "Significand: " << std::bitset<12>(aFloat.getSignificand()) << std::endl <<
+        "Exponent: " << std::bitset<4>(aFloat.getExponent()) << std::endl;
     return os;
 }
 
@@ -33,7 +38,28 @@ void MyFloat::setExponent(uint16_t e) {
     data = (data & SIGNIFICAND_MASK) | (e & EXPONENT_MASK);
 }
 
-MyFloat::MyFloat(uint16_t significand, uint16_t exponent) : data(0) {
-    setExponent(exponent);
-    setSignificand(significand);
+bool operator ==(const MyFloat &lhs, const MyFloat &rhs) {
+    return lhs.data == rhs
+            .data;
 }
+
+bool operator !=(const MyFloat &lhs, const MyFloat &rhs) {
+    return !(rhs == lhs);
+}
+
+MyFloat operator +(const MyFloat &lhs, const MyFloat &rhs) {
+    return MyFloat(0);//TODO
+}
+
+MyFloat operator -(const MyFloat &lhs, const MyFloat &rhs) {
+    return MyFloat(0);//TODO
+}
+
+MyFloat operator *(const MyFloat &lhs, const MyFloat &rhs) {
+    return MyFloat(0);//TODO
+}
+
+MyFloat operator /(const MyFloat &lhs, const MyFloat &rhs) {
+    return MyFloat(0);//TODO
+}
+
