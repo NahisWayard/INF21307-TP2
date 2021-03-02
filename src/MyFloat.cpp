@@ -26,11 +26,11 @@ uint16_t MyFloat::getData() const {
 }
 
 void MyFloat::setSignificand(uint16_t s) {
-    data = (data << 12) >> 12 | (((s) << 4) & SIGNIFICAND_MASK);
+    data = (data & EXPONENT_MASK) | (((s) << 4) & SIGNIFICAND_MASK);
 }
 
 void MyFloat::setExponent(uint16_t e) {
-    data = (data >> 4) << 4 | (e & EXPONENT_MASK);
+    data = (data & SIGNIFICAND_MASK) | (e & EXPONENT_MASK);
 }
 
 MyFloat::MyFloat(uint16_t significand, uint16_t exponent) : data(0) {
