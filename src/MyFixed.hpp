@@ -26,10 +26,10 @@ private:
 
 public:
     friend MyFixed operator +(const MyFixed<T, P> &lhs, const MyFixed<T, P> &rhs) {
-        return MyFixed<T, P>(lhs.toFloat() + rhs.toFloat());
+        return MyFixed<T, P>((T) (lhs.data + rhs.data));
     };
     friend MyFixed operator -(const MyFixed<T, P> &lhs, const MyFixed<T, P> &rhs) {
-        return MyFixed<T, P>(lhs.toFloat() - rhs.toFloat());
+        return MyFixed<T, P>((T) (lhs.data - rhs.data));
     };
     //friend MyFixed operator *(const MyFixed<T, P> &lhs, const MyFixed<T, P> &rhs);
     //friend MyFixed operator /(const MyFixed<T, P> &lhs, const MyFixed<T, P> &rhs);
