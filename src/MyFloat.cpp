@@ -21,8 +21,8 @@ uint16_t MyFloat::getExponent() const {
 std::ostream &operator <<(std::ostream &os, const MyFloat &aFloat) {
     //TODO Display as floating point thing (ex: 13.234)
     os << "RAW: " << std::bitset<16>(aFloat.data) <<  std::endl <<
-        "Significand: " << std::bitset<12>(aFloat.getSignificand()) << std::endl <<
-        "Exponent: " << std::bitset<4>(aFloat.getExponent()) << std::endl;
+        "Significand: " << std::bitset<12>(aFloat.getSignificand()) << "(" << aFloat.getSignificand() << ")" << std::endl <<
+        "Exponent: " << std::bitset<4>(aFloat.getExponent()) << "(" << aFloat.getExponent() << ")"<< std::endl;
     return os;
 }
 
@@ -61,5 +61,17 @@ MyFloat operator *(const MyFloat &lhs, const MyFloat &rhs) {
 
 MyFloat operator /(const MyFloat &lhs, const MyFloat &rhs) {
     return MyFloat(0);//TODO
+}
+
+bool MyFloat::isInf() const {
+    if ((data & EXPONENT_MASK) == MAX_EXPONENT && (data & SIGNIFICAND_MASK) == 0)
+        return true;
+    return false;
+}
+
+bool MyFloat::isNaN() const {
+    if ((data & EXPONENT_MASK) == MAX_EXPONENT && (data & SIGNIFICAND_MASK) != 0)
+        return true;
+    return false;
 }
 
