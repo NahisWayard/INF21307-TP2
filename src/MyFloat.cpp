@@ -1,9 +1,14 @@
 #include <bitset>
 #include <iostream>
+#include <cmath>
 #include "MyFloat.hpp"
 
-MyFloat::MyFloat(uint16_t data) :
-        data(data) {
+// MyFloat::MyFloat(uint16_t data) :
+//         data(data) {
+// }
+
+MyFloat::MyFloat(float data) {
+    this->data = this->testFloatToFix(data);
 }
 
 MyFloat::MyFloat(uint16_t significand, uint16_t exponent) : data(0) {
@@ -18,12 +23,49 @@ uint16_t MyFloat::getExponent() const {
     return data & EXPONENT_MASK;
 }
 
+uint16_t MyFloat::testFloatToFix(float x) {
+    uint16_t tmp = x * (float)(1 << this->scale); // 2^4 = 16
+    //uint16_t tmp = x * (float)pow(2, this->scale);
+    
+    //std::cout << "x : " << x << " || Fixed x : " << tmp << std::endl;
+
+    return tmp;
+}
+
+float MyFloat::testFixToFloat(uint16_t x) {
+    float tmp = (float)x / (float)(1 << this->scale);
+    //float tmp2 = (float)(1 << this->scale);
+
+    //std::cout << "Fixed x : " << x << " || x : " << tmp << std::endl;
+
+    return tmp;
+}
+
+uint16_t MyFloat::testUintToFix(uint16_t x) {
+    uint16_t tmp = x << this->scale;
+    //std::cout << "Uint16 x : " << x << " || Fixed x : " << tmp << std::endl;
+
+    return tmp;
+}
+
+uint16_t MyFloat::testFixToInt(uint16_t x) {
+    uint16_t tmp = x >> this->scale;
+    //std::cout << "Fixed x : " << x << " || Uint16 x : " << tmp << std::endl;
+
+    return tmp;
+}
+
+
 std::ostream &operator <<(std::ostream &os, const MyFloat &aFloat) {
     //TODO Display as floating point thing (ex: 13.234)
     os << "RAW: " << std::bitset<16>(aFloat.data) <<  std::endl <<
         "Significand: " << std::bitset<12>(aFloat.getSignificand()) << "(" << aFloat.getSignificand() << ")" << std::endl <<
         "Exponent: " << std::bitset<4>(aFloat.getExponent()) << "(" << aFloat.getExponent() << ")"<< std::endl;
     return os;
+}
+
+void MyFloat::setData(uint16_t d) {
+    this->data = d;
 }
 
 uint16_t MyFloat::getData() const {
@@ -48,11 +90,25 @@ bool operator !=(const MyFloat &lhs, const MyFloat &rhs) {
 }
 
 MyFloat operator +(const MyFloat &lhs, const MyFloat &rhs) {
-    return MyFloat(0);//TODO
+
+    auto tmp = MyFloat(0);
+
+    tmp.setData(lhs.getData() + rhs.getData());
+
+    std::cout << tmp.testFixToFloat(lhs.getData()) << " + " << tmp.testFixToFloat(rhs.getData()) << " = " << tmp.testFixToFloat(tmp.getData()) << std::endl;
+
+    return (tmp);//TODO
 }
 
 MyFloat operator -(const MyFloat &lhs, const MyFloat &rhs) {
-    return MyFloat(0);//TODO
+
+    auto tmp = MyFloat(0);
+
+    tmp.setData(lhs.getData() - rhs.getData());
+
+    std::cout << tmp.testFixToFloat(lhs.getData()) << " - " << tmp.testFixToFloat(rhs.getData()) << " = " << tmp.testFixToFloat(tmp.getData()) << std::endl;
+
+    return (tmp);//TODO
 }
 
 MyFloat operator *(const MyFloat &lhs, const MyFloat &rhs) {

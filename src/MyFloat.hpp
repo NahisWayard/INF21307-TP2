@@ -12,15 +12,22 @@
 
 class MyFloat {
     uint16_t data;
+    const int scale = 4;
 
 public:
-    MyFloat(uint16_t data);
+    //MyFloat(uint16_t data);
+    MyFloat(float data);
     MyFloat(uint16_t significand, uint16_t exponent);
 
     uint16_t getSignificand() const;
     uint16_t getExponent() const;
     void setSignificand(uint16_t s);
     void setExponent(uint16_t e);
+    uint16_t testFloatToFix(float x);
+    float testFixToFloat(uint16_t x);
+    uint16_t testUintToFix(uint16_t x);
+    uint16_t testFixToInt(uint16_t x);
+    void setData(uint16_t d);
     uint16_t getData() const;
 
     bool isNaN() const;
