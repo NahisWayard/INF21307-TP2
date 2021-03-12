@@ -3,6 +3,7 @@
 #include "MyFixed.hpp"
 
 typedef MyFixed<uint16_t , 4> FixedForTP;
+typedef MyFixed<uint64_t , 16> FixedForBestPrecision;
 
 template<typename T>
 T newton(size_t n, size_t it) {
@@ -19,7 +20,7 @@ T newton(size_t n, size_t it) {
 
 void testNewton(size_t n, size_t it) {
     std::cout << "------------N: " << n << " --- IT: " << it <<  "------------" << std::endl;
-    std::cout << "MyFixed newton: " << newton<MyFixed<uint64_t, 16>>(n, it) << std::endl;
+    std::cout << "MyFixed newton: " << newton<FixedForBestPrecision>(n, it) << std::endl;
     std::cout << "MyFixedTPConditions newton: " << newton<FixedForTP>(n, it) << std::endl;
     std::cout << "System float newton:" << newton<float>(n, it) << std::endl;
 }
