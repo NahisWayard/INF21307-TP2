@@ -3,7 +3,12 @@
 
 #include <ostream>
 
-template <typename T, unsigned int P>
+template<typename T>
+void displayBin(T t) {
+    std::cout << std::bitset<sizeof (T) * 8>(t) << std::endl;
+}
+
+template <typename T, size_t P>
 class MyFixed {
 public:
     explicit MyFixed(float input) {
@@ -44,11 +49,9 @@ public:
     }
 
     friend MyFixed operator /(const MyFixed<T, P> &lhs, const MyFixed<T, P> &rhs) {
-        size_t offset = (P / 2);
-        T a = (lhs.data >> offset);
-        T b = (rhs.data >> offset);
-        T r = (a / b) >> (P - (offset * 2));
-
+        T a = (lhs.data) << P;
+        T b = (rhs.data);
+        T r = (a / b);
         return MyFixed<T, P>(r);
     }
 

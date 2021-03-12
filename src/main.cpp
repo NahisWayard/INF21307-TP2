@@ -3,10 +3,10 @@
 #include "MyFixed.hpp"
 
 int main(int ac, char **av) {
-    typedef MyFixed<uint16_t, 4> FixedForTP;
+    typedef MyFixed<uint32_t , 16> FixedForTP;
 
-    auto f = FixedForTP(1.1f);
-    auto d = FixedForTP(1.25f);
+    auto f = FixedForTP(0.125f);
+    auto d = FixedForTP(3.0f);
 
     auto epsilon = FixedForTP(1.0f);
     epsilon.data = 1;
