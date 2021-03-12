@@ -23,7 +23,7 @@ public:
 private:
 
     static T toFixed(float f) {
-        return f * (float)(1 << P);
+        return round(f * (float)(1 << P));
     }
 
     float toFloat() const {
