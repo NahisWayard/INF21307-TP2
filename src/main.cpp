@@ -26,20 +26,20 @@ void testNewton(size_t n, size_t it) {
 }
 
 int main(int ac, char **av) {
+    auto lowestNumber = FixedForTP(1.0f);
+    lowestNumber.data = 1;
 
-    auto f = FixedForTP(1.1f);
-    auto d = FixedForTP(3.0f);
+    std::cout << "The lowest number representable is " << lowestNumber << std::endl;
+    auto a = FixedForTP(1.1f);
+    auto b = FixedForTP(3.0f);
+    auto c = FixedForTP (2.5f);
 
-    auto epsilon = FixedForTP(1.0f);
-    epsilon.data = 1;
+    std::cout << a << " + " << b << " = " << a + b << std::endl;
+    std::cout << b << " - " << a << " = " << b - a << std::endl;
+    std::cout << b << " * " << c << " = " << b * c << std::endl;
+    std::cout << a << " / " << b << " = " << a / b << std::endl;
 
-    std::cout << epsilon << std::endl;
-
-    auto res = f * d;
-    std::cout << f << "*" << d << "=" << res << std::endl;
-    res = f / d;
-    std::cout << f << "/" << d << "=" << res << std::endl;
-
+    std::cout << "Testing Fixed type implementation with Newton's algorithm" << std::endl;
     testNewton(15, 1000);
     testNewton(2, 1000);
 }
